@@ -1,0 +1,44 @@
+.wrapper {
+    margin: 95px 0 95px 195px;
+}
+
+.mainText {
+    font-weight: 700;
+    font-size: 58px;
+    line-height: 80px;
+    margin-bottom: 35px;
+    letter-spacing: 0.2px;
+    color: #252B42;
+    width: 727px;
+    height: 160px;
+}
+
+.button {
+    border-radius: 5px;
+    margin-right: 10px;
+    padding: 15px 40px;
+    height: 52px;
+}
+
+.card {
+    display: flex;
+    margin: 35px 0 0 195px;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 375px) {
+    .mainText {
+        font-size: 28px;
+        line-height: 39px;
+        max-width: 355px;
+        height: 89px;
+        letter-spacing: 0.2px;
+    }
+    .wrapper {
+        margin: 55px 10px 35px 10px;
+        max-width: 355px;
+    }
+    .card {
+        margin: 35px 10px;
+    }
+}

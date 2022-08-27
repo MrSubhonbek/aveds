@@ -1,0 +1,38 @@
+.wrapper {
+    height: 80px;
+    border-bottom: solid 1px black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 70px;
+}
+
+.login {
+    font-size: 20px;
+    border-radius: 7px;
+    width: 186px;
+    height: 40px;
+}
+
+.logo {
+    position: absolute;
+    margin-top: 30px;
+    margin-left: 70px;
+    width: 53.27px;
+    height: 22.66px;
+}
+
+@media screen and (max-width: 375px) {
+    .logo {
+        margin-left: 10px;
+    }
+    .login {
+        border-radius: 7px;
+        width: 106px;
+        height: 36px;
+    }
+    .wrapper{
+        padding-right: 10px;
+    }
+}
