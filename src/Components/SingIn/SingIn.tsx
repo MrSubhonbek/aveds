@@ -2,8 +2,9 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Alert, Button, Form, Input } from 'antd'
 import Title from 'antd/lib/typography/Title'
 import axios from 'axios'
-import React from 'react';
-import { USERS_URL } from '../../shared/constant'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RoutsApp, USERS_URL } from '../../shared/constant'
 import st from './SingIn.module.css'
 
 interface ISingIn {
@@ -20,8 +21,9 @@ interface IProps {setIsSingIn: (value:boolean)=>void}
 
 export const SingIn = (props: IProps) => {
 
-  const [errors, setErrors] = React.useState('')
-  const [loading, setLoading] = React.useState(false)
+  const [errors, setErrors] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const onFinish = async ({ userName, password }: ISingIn) => {
 
@@ -38,9 +40,8 @@ export const SingIn = (props: IProps) => {
       setErrors('') 
       props.setIsSingIn(localStorage.getItem('isLoggedIn') === 'true')
       localStorage.setItem('isLoggedIn', 'true');
+      navigate(RoutsApp.Contacts)
     }
-
-
     setLoading(false)
   };
 
@@ -53,9 +54,6 @@ export const SingIn = (props: IProps) => {
       initialValues={{ userName: 'Kathleen Stokes', password: '982735341' }}
       onFinish={onFinish}
     >
-
-      <Title>Authorization</Title>
-
       <Form.Item
         name="userName"
         rules={[{ required: true, message: 'Please input your Username!' }]}
@@ -75,8 +73,8 @@ export const SingIn = (props: IProps) => {
       </Form.Item>
 
       <Form.Item>
-        <Button loading={loading} type="primary" htmlType="submit" className="login-form-button">
-          Log in
+        <Button loading={loading} type="primary" danger htmlType="submit" className="login-form-button">
+          Войти
         </Button>
       </Form.Item>
 

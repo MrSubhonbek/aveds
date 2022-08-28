@@ -4,14 +4,19 @@ import st from './Card.module.css'
 
 const { Meta } = Card;
 
-export const CardPage = () => {
+interface IProps {
+    idSvg:string
+    title:string
+    description: string
+}
+
+export const CardPage = (props: IProps) => {
     return (
         <Card className={st.card} >
-            <GlobalSvgSelector id='heart' />
-            <Meta
-                title="Онлайн-прием"
-                description='Банальные, но неопровержимые выводы, а также реплицированные с зарубежных источников, современные исследования.'
-            />
+            <GlobalSvgSelector id={props.idSvg} />
+            <Meta title={props.title}/>
+            <div className={st.wrapper}></div>
+            <span>{props.description}</span>
         </Card>
     )
 }

@@ -1,15 +1,19 @@
-import { Button, PageHeader } from 'antd';
+import { Button } from 'antd';
 import { GlobalSvgSelector } from '../../assets/icons/GlobalSvgSelector';
 
 import st from './Header.module.css'
 
-export const Header = () => {
+interface IProps {
+    showModal: () => void
+}
+
+export const Header = (props: IProps) => {
     return (
         <header>
-            <span className={st.logo}><GlobalSvgSelector id='logo'/></span>
+            <span className={st.logo}><GlobalSvgSelector id='logo' /></span>
             <div className={st.wrapper}>
-                <Button key="2" type="text">Контакты</Button>
-                <Button key="1" danger className={st.login}>Войти</Button>
+                <Button onClick={() => props.showModal()} type="text">Контакты</Button>
+                <Button danger className={st.login} onClick={props.showModal}>Войти</Button>
             </div>
         </header>
     )

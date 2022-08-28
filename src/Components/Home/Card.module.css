@@ -6,6 +6,14 @@
     margin-right: 30px;
     margin-bottom: 30px;
 }
+.card span {
+    color: #737373
+}
+.wrapper {
+    border: solid 2px #E74040;
+    width: 50px;
+    margin: 20px 0;
+}
 @media screen and (max-width: 375px) {
     .card {
         margin-right: 10px;
