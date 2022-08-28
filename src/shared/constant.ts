@@ -4,5 +4,6 @@ export enum RoutsApp {
     Any = '*',
     Home = '/',
     SignIn = '/signIn',
-    Contacts = '/contacts'
+    Contacts = '/contacts',
+    HiUser= '/user'
   }

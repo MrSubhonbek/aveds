@@ -1,11 +1,9 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Alert, Button, Form, Input } from 'antd'
-import Title from 'antd/lib/typography/Title'
 import axios from 'axios'
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutsApp, USERS_URL } from '../../shared/constant'
-import st from './SingIn.module.css'
 
 interface ISingIn {
   userName: string
@@ -17,7 +15,7 @@ interface IUsers {
   password: string
   id: string
 }
-interface IProps {setIsSingIn: (value:boolean)=>void}
+interface IProps { setIsSingIn: (value: boolean) => void }
 
 export const SingIn = (props: IProps) => {
 
@@ -31,44 +29,62 @@ export const SingIn = (props: IProps) => {
 
     const res = await axios.get(USERS_URL)
 
-    const searchUser = res.data.find((user: IUsers) => user.name === userName)
+    const searchUser: IUsers = res.data.find((user: IUsers) => user.name === userName)
 
-    if(!searchUser){
-      setErrors('No such user exists!')
+    if (!searchUser) {
+      setErrors('Такого пользователя нет(')
     }
     else {
-      setErrors('') 
-      props.setIsSingIn(localStorage.getItem('isLoggedIn') === 'true')
-      localStorage.setItem('isLoggedIn', 'true');
-      navigate(RoutsApp.Contacts)
+      setErrors('')
+      if (password === searchUser.password) {
+        props.setIsSingIn(true)
+        localStorage.setItem('isLoggedIn', 'true');
+        console.log(searchUser);
+
+        localStorage.setItem('user', searchUser.name.toString());
+        localStorage.setItem('userId', searchUser.id.toString());
+        navigate(RoutsApp.HiUser)
+      }
+      else {
+        setErrors('Такого пользователя нет(')
+      }
     }
     setLoading(false)
   };
-
+  const [form] = Form.useForm();
 
   return (
 
     <Form
+      form={form}
+      autoComplete={"off"}
       name="normal_login"
-      className={st.loginForm}
-      initialValues={{ userName: 'Kathleen Stokes', password: '982735341' }}
+      initialValues={{ userName: '', password: '' }}
       onFinish={onFinish}
     >
       <Form.Item
         name="userName"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        rules={[
+          { required: true, message: 'Пожалуйста, введите имя пользователя!' },
+          { min: 3, message: 'Короткое имя пользователя!' }
+        ]}
+        hasFeedback
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Имя пользователя" />
       </Form.Item>
 
       <Form.Item
         name="password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
+        rules={[
+          { required: true, message: 'Пожалуйста, введите пароль!' },
+          { min: 8, message: 'Короткий пороль!' }
+        ]}
+        hasFeedback
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Password"
+          placeholder="Пороль"
         />
       </Form.Item>
 

@@ -3,7 +3,8 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import Title from 'antd/lib/typography/Title'
 import { CONTACTS_URL } from '../../shared/constant';
-
+import { Header } from '../../shared/Header/Header';
+import st from './Contacts.module.css'
 const { Column } = Table;
 
 interface IContacts {
@@ -11,19 +12,23 @@ interface IContacts {
     name: string;
     phone: string;
 }
+interface IProps { 
+    setIsSingIn: (value: boolean) => void 
+}
 
-export const Contacts: React.FC = () => {
+export const Contacts = (props:IProps) => {
     const [contacts, setContacts] = React.useState<Array<IContacts>>();
 
     useEffect(() => {
-        axios.get(CONTACTS_URL).then((response) => {
+        axios.get(CONTACTS_URL + `?id=${localStorage.getItem('userId')}`).then((response) => {
             setContacts(response.data);
         });
     }, []);
 
     return (
         <>
-        <Title>List of contacts</Title>
+        <Header setIsSingIn={props.setIsSingIn} />
+        <Title className={st.title}>Контакты</Title>
 
         <Table dataSource={contacts}>
             <Column title="Name" dataIndex="name" key="name" />
